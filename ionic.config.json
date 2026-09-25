@@ -1,0 +1,7 @@
+{
+  "name": "control-finanzas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
