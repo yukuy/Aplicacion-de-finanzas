@@ -1,0 +1,27 @@
+.botones-movimientos {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.boton-accion {
+  flex: 1;
+  margin: 0;
+}
+
+.registrar {
+  --background: green !important;
+}
+
+.consultar {
+  --background: blue !important;
+}
+
+.editar {
+  --background: orange !important;
+}
+
+.eliminar {
+  --background: red !important;
+}

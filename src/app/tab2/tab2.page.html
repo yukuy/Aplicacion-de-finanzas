@@ -1,17 +1,139 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <h1> Movimientos </h1>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <p>Registra y consulta tus ingresos y gastos.</p>
+  
+  <!-- recuadro para mostrar los ingresos -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ingresos</ion-card-title> 
+      </ion-card-header>
+
+      <ion-card-content>
+        $0
+      </ion-card-content>
+    </ion-card>
+
+<!-- recuadro para mostrar gastos -->
+    <ion-card>
+
+      <ion-card-header>
+        <ion-card-title>Gastos</ion-card-title> 
+      </ion-card-header>
+
+      <ion-card-content>
+        $0
+      </ion-card-content>
+
+    </ion-card>  
+
+    <!--botones para acciones de los movimientor -->
+    <div class="botones-movimientos">
+ 
+      <!--boton para registrar movimiento -->
+      <ion-button class="boton-accion registrar" (click)="mostrarFormulario = true"> 
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Registrar Movimiento
+      </ion-button>
+
+      <!--boton para ver movimientos -->
+      <ion-button class="boton-accion consultar" > 
+        <ion-icon name="list-outline" slot="start"></ion-icon>
+          Consultar Movimientos
+      </ion-button>
+
+      <!--boton para editar movimientos -->
+      <ion-button class="boton-accion editar" > 
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+          Editar Movimientos
+      </ion-button>
+
+      <!--boton para eliminar movimientos -->
+      <ion-button class="boton-accion eliminar" > 
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+          Eliminar Movimientos
+      </ion-button>
+
+    </div>
+
+  <!-- visualizar el formulario de registro de movimientos -->
+     @if (mostrarFormulario){
+
+  <!-- formulario de registro de movimiento -->
+      <ion-card>
+        
+        <ion-card-header>
+          <ion-card-title>Registrar Movimiento</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+        
+          <!--seleccionar tipo  de movimiento -->
+          <ion-item>
+            <ion-select label="Tipo:" placeholder="selecciona un tipo">
+
+              <ion-select-option value="ingreso">
+                Ingreso
+              </ion-select-option>
+              
+              <ion-select-option value="gasto">
+                Gasto
+              </ion-select-option>
+            
+            </ion-select>
+          </ion-item>
+
+          <!--descripcion del movimiento -->
+          <ion-item> 
+            <ion-input label="Descripcion:" placeholder="ej: pagar arriendo"> </ion-input>
+          </ion-item>
+
+          <!--valor del movimiento -->
+          <ion-item> 
+            <ion-input label="valor:" type="number" placeholder="ej: 50000"> </ion-input>
+          </ion-item>
+          
+          <!--selecciona la categoria -->
+          <ion-item>
+            <ion-select label="Categoria:" placeholder="selecciona una categoria">
+
+              <ion-select-option value="alimentacion">
+                Sueldo
+              </ion-select-option>
+
+               <ion-select-option value="alimentacion">
+                Servicios Casa 
+              </ion-select-option>
+
+              <ion-select-option value="alimentacion">
+                Alimentacion
+              </ion-select-option>
+              
+              <ion-select-option value="transporte">
+                Transporte
+              </ion-select-option>
+
+              <ion-select-option value="entretenimiento">
+                Entretenimiento
+              </ion-select-option>
+
+              <ion-select-option value="otros">
+                Otros
+              </ion-select-option>
+            
+            </ion-select>
+          </ion-item>
+
+          <!--boton para guardar el movimiento -->
+          <ion-button expand="block"> 
+            Guardar Movimiento
+          </ion-button>
+         
+
+        </ion-card-content>
+
+      </ion-card>
+  }
+  
 </ion-content>
