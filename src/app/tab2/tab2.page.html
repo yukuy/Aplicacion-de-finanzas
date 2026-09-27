@@ -38,7 +38,9 @@
       </ion-button>
 
       <!--boton para ver movimientos -->
-      <ion-button class="boton-accion consultar" > 
+      <ion-button 
+        class="boton-accion consultar"  
+        (click)="consultarMovimientos()">
         <ion-icon name="list-outline" slot="start"></ion-icon>
           Consultar Movimientos
       </ion-button>
@@ -59,8 +61,6 @@
 
   <!-- visualizar el formulario de registro de movimientos -->
      @if (mostrarFormulario){
-
-  <!-- formulario de registro de movimiento -->
       <ion-card>
         
         <ion-card-header>
@@ -71,7 +71,7 @@
         
           <!--seleccionar tipo  de movimiento -->
           <ion-item>
-            <ion-select label="Tipo:" placeholder="selecciona un tipo">
+            <ion-select label="Tipo:" placeholder="selecciona un tipo" [(ngModel)]="tipo">
 
               <ion-select-option value="ingreso">
                 Ingreso
@@ -86,23 +86,23 @@
 
           <!--descripcion del movimiento -->
           <ion-item> 
-            <ion-input label="Descripcion:" placeholder="ej: pagar arriendo"> </ion-input>
+            <ion-input label="Descripcion:" placeholder="ej: pagar arriendo" [(ngModel)]="descripcion"> </ion-input>
           </ion-item>
 
           <!--valor del movimiento -->
           <ion-item> 
-            <ion-input label="valor:" type="number" placeholder="ej: 50000"> </ion-input>
+            <ion-input label="valor:" type="number" placeholder="ej: 50000" [(ngModel)]="valor"> </ion-input>
           </ion-item>
           
           <!--selecciona la categoria -->
           <ion-item>
-            <ion-select label="Categoria:" placeholder="selecciona una categoria">
+            <ion-select label="Categoria:" placeholder="selecciona una categoria" [(ngModel)]="categoria">
 
-              <ion-select-option value="alimentacion">
+              <ion-select-option value="sueldo">
                 Sueldo
               </ion-select-option>
 
-               <ion-select-option value="alimentacion">
+               <ion-select-option value="servicios_casa">
                 Servicios Casa 
               </ion-select-option>
 
@@ -126,14 +126,58 @@
           </ion-item>
 
           <!--boton para guardar el movimiento -->
-          <ion-button expand="block"> 
+          <ion-button expand="block" (click)="guardarMovimiento()"> 
             Guardar Movimiento
           </ion-button>
-         
 
         </ion-card-content>
 
       </ion-card>
   }
-  
-</ion-content>
+
+  <!--mostrar movimietos guardados -->
+  @if (mostrarMovimientos) {
+    <ion-card>
+
+      <ion-card-header>
+        <ion-card-title>
+          Mostrar Movimientos Guardados
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        @if (movimientos.length === 0){
+
+          <p>No hay movimientos guardados</p>
+
+          } @else {
+            @for (movimiento of movimientos; track $index){
+
+              <ion-card>
+
+                <ion-card-header>
+                  <ion-card-title>
+                    {{movimiento.descripcion}}
+                  </ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+
+                  <p> <strong>Tipo:</strong>
+                    {{movimiento.tipo}}</p>
+
+                  <p><strong>Categoria:</strong>
+                    {{movimiento.categoria}}</p>
+
+                  <p><strong>Valor:</strong> 
+                    ${{movimiento.valor}}</p>
+                </ion-card-content>
+              </ion-card>
+            }
+          }
+      </ion-card-content>
+    </ion-card>
+  }
+
+  </ion-content>
+
