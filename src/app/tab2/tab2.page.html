@@ -32,8 +32,9 @@
     <div class="botones-movimientos">
  
       <!--boton para registrar movimiento -->
-      <ion-button class="boton-accion registrar" (click)="mostrarFormulario = true"> 
+      <ion-button class="boton-accion registrar" (click)="abrirFormulario()"> 
         <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+
           Registrar Movimiento
       </ion-button>
 
@@ -126,7 +127,9 @@
           </ion-item>
 
           <!--boton para guardar el movimiento -->
-          <ion-button expand="block" (click)="guardarMovimiento()"> 
+          <ion-button expand="block" 
+          [disabled]="guardando"
+          (click)="guardarMovimiento()"> 
             Guardar Movimiento
           </ion-button>
 
