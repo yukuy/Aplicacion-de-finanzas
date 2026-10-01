@@ -75,4 +75,43 @@ export class Supabase {
     return data;
   }
 
+  //ACTUALIZAR MOVIMIENTO   
+  async actualizarMovimiento(id: number, movimiento: MovimientoBD) {
+
+    const { data, error } = await this.supabase
+    .from('movimientos')
+    .update({
+      tipo : movimiento.tipo,
+      categoria : movimiento.categoria,
+      valor : movimiento.valor,
+      descripcion : movimiento.descripcion
+    })
+    .eq('id', id)
+    .select()
+    .single();
+   
+    if (error) {
+        
+      console.error(' Erro actualizando movimiento:', error);
+
+      throw error;
+    }
+
+    return data;
+
+  }
+  
+  //ELIMINAR MOVIMIENTO
+  async eliminarMovimiento(id: number) {
+
+    const { error } = await this.supabase
+      .from('movimientos')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error eliminando movimiento:', error);
+      throw error;
+    }
+  }
 }
