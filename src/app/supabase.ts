@@ -75,6 +75,23 @@ export class Supabase {
     return data;
   }
 
+  //consultar movimientos por mes 
+  async consultarMovimientosPorMes(fechaInicio: string, fechaFin: string) {
+    
+    const { data, error } = await this.supabase
+      .from('movimientos')
+      .select('*')
+      .gte('fecha', fechaInicio)
+      .lt('fecha', fechaFin)
+      .order('fecha', { ascending: false });
+
+      if (error){
+        console.error('Error consultando movimientos por mes:', error);
+        throw error;
+      }
+      return data ?? [];
+  }
+
   //ACTUALIZAR MOVIMIENTO   
   async actualizarMovimiento(id: number, movimiento: MovimientoBD) {
 

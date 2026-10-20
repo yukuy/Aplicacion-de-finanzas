@@ -2,33 +2,67 @@
 
   <h1> Movimientos </h1>
 
-  <p>Registra y consulta tus ingresos y gastos.</p>
-  
-  <!-- recuadro para mostrar los ingresos -->
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Ingresos</ion-card-title> 
-      </ion-card-header>
+  <p>Registra y administra tus movimientos financieros.</p>
 
-      <ion-card-content>
-        $0
-      </ion-card-content>
-    </ion-card>
+  <!--MES SELECCIONADO-->
+  <ion-card>
 
-<!-- recuadro para mostrar gastos -->
-    <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Mes Seleccionado
+      </ion-card-title>
+    </ion-card-header>
 
-      <ion-card-header>
-        <ion-card-title>Gastos</ion-card-title> 
-      </ion-card-header>
+    <ion-card-content>
 
-      <ion-card-content>
-        $0
-      </ion-card-content>
+      <ion-item>
 
-    </ion-card>  
+        <ion-select
+          label="Mes:"
+          [(ngModel)]="mesSeleccionado"
+          (ionChange)="cargarMovimientosPorMes()">
 
-    <!--botones para acciones de los movimientor -->
+          @for (mes of meses; track mes.valor) {
+
+            <ion-select-option
+              [value]="'2026-' + mes.valor">
+
+              {{ mes.nombre }} 2026
+
+            </ion-select-option>
+
+          }
+
+        </ion-select>
+
+      </ion-item>
+
+      <p>
+        <strong>Registros del mes:</strong>
+        {{ cantidadRegistrosMes }}
+      </p>
+
+      @if (ultimoMovimientoMes) {
+
+        <p>
+          <strong>Último movimiento del mes:</strong>
+          {{ ultimoMovimientoMes.descripcion }}
+          {{ ultimoMovimientoMes.fecha | date:'dd/MM/yyyy' }}
+        </p>
+
+      } @else {
+
+        <p>
+          No hay movimientos registrados para este mes.
+        </p>
+
+      }
+
+    </ion-card-content>
+
+  </ion-card> 
+
+  <!--botones para acciones de los movimientor -->
     <div class="botones-movimientos">
  
       <!--boton para registrar movimiento -->
@@ -137,12 +171,80 @@
       </ion-card-header>
 
       <ion-card-content>
-        @if (movimientos.length === 0){
+
+        <h3>Filtros</h3>
+        <ion-item>
+          <ion-select label="Tipo:" [(ngModel)]="filtroTipo" >
+
+            <ion-select-option value="todos">
+              Todos
+            </ion-select-option>
+
+            <ion-select-option value="ingreso">
+              Ingreso
+            </ion-select-option>
+            
+            <ion-select-option value="gasto">
+              Gasto
+            </ion-select-option>
+          
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Categoria:" [(ngModel)]="filtroCategoria" >
+
+            <ion-select-option value="todas">
+              Todos
+            </ion-select-option>
+
+            <ion-select-option value="sueldo">
+              Sueldo
+            </ion-select-option>
+
+             <ion-select-option value="servicios_casa">
+              Servicios Casa 
+            </ion-select-option>
+
+            <ion-select-option value="alimentacion">
+              Alimentacion
+            </ion-select-option>
+            
+            <ion-select-option value="transporte">
+              Transporte
+            </ion-select-option>
+
+            <ion-select-option value="entretenimiento">
+              Entretenimiento
+            </ion-select-option>
+
+            <ion-select-option value="otros">
+              Otros
+            </ion-select-option>
+          
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Buscar:" placeholder="buscar por descripcion" [(ngModel)]="filtroDescripcion"></ion-input>
+        </ion-item>
+
+        <ion-button
+          expand="block"  (click)="aplicarFiltros()"> Aplicar filtros
+        </ion-button>
+
+        <ion-button
+          expand="block"  fill="outline"(click)="limpiarFiltros()"> Limpiar filtros
+        </ion-button>
+      </ion-card-content>
+
+      <ion-card-content>
+        @if (movimientosFiltrados.length === 0){
 
           <p>No hay movimientos guardados</p>
 
           } @else {
-            @for (movimiento of movimientos; track $index){
+            @for (movimiento of movimientosFiltrados; track $index){
 
               <ion-card>
 
